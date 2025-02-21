@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# detect cpio
+cpios=(*.cpio)
+if [ ${#cpios[@]} -eq 0 ]; then
+    echo "No cpio files found"
+    exit 1
+fi
+echo "available cpio files:"
+for i in ${!cpios[@]}; do
+    echo "$i) ${cpios[$i]}"
+done
+echo "Select cpio file to extract:"
+read -r cpio_index
+cpio_file=${cpios[$cpio_index]}
+echo "[*]Extracting $cpio_file ........"
+
+# Extract the cpio archive
+mkdir out
+cd out
+sudo cpio -idv < ../$cpio_file
+sudo getfacl -R . > ../perm.acl
+sudo chown -R $(whoami):$(whoami) .
+cd ..
+
+echo "[*]Extraction complete"
+echo "Start to PWN!!!"
