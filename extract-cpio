@@ -20,7 +20,8 @@ mkdir out
 cd out
 sudo cpio -idv < ../$cpio_file
 sudo getfacl -R . > ../perm.acl
-sudo chown -R $(whoami):$(whoami) .
+user=$(whoami)
+sudo chown -R $user:$user .
 cd ..
 
 echo "[*]Extraction complete"
