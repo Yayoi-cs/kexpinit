@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo cp -r out tmp
+cp -r out tmp
 cd out
 sudo setfacl --restore ../perm.acl
 sudo find . -print0 | sudo cpio -o --format=newc --null > ../archive.cpio
